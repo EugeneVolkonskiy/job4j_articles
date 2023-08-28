@@ -3,19 +3,17 @@ package ru.job4j.articles.service.generator;
 import ru.job4j.articles.model.Article;
 import ru.job4j.articles.model.Word;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 public class RandomArticleGenerator implements ArticleGenerator {
+
     @Override
-    public Article generate(List<Word> words) {
-        var wordsCopy = new ArrayList<>(words);
-        Collections.shuffle(wordsCopy);
-        var content = wordsCopy.stream()
-                .map(Word::getValue)
-                .collect(Collectors.joining(" "));
-        return new Article(content);
+    public Article generate(List<Word> words, Random random) {
+        StringBuilder content = new StringBuilder();
+        for (int i = 0; i < 200; i++) {
+            content.append(words.get(random.nextInt(words.size())).getValue()).append(" ");
+        }
+        return new Article(content.toString());
     }
 }
